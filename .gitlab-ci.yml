@@ -1,0 +1,9 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build_project:
+  stage: build
+  script:
+    - echo "Welcome to my API Flask"
