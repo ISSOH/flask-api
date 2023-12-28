@@ -3,7 +3,10 @@ stages:
   - test
   - deploy
 
-build_project:
+image: python:latest
+
+run_api:
   stage: build
   script:
+    - python main.py
     - echo "Welcome to my API Flask"
