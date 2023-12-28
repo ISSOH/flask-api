@@ -13,4 +13,4 @@ run_api:
   script:
     - python main.py &
     - sleep 20
-    - curl http://localhost/api/health | grep "UP"
+    - curl http://localhost:5000/api/health | grep "UP"
