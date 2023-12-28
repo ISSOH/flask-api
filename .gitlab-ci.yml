@@ -11,5 +11,6 @@ before_script:
 run_api:
   stage: build
   script:
-    - python main.py
-    - echo "Welcome to my API Flask"
+    - python main.py &
+    - sleep 20
+    - curl http://localhost/api/health | grep "UP"
