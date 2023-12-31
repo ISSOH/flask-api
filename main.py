@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request
-import requests
 import json
 
 app = Flask(__name__)
@@ -56,9 +55,9 @@ def get_car_by_id(id_car: int):
     return next((car for car in cars if car['id'] == id_car), None)
 
 
-def get_highest_id_car() -> int:
+def get_highest_id_car(cars_list: list) -> int:
     id_cars = []
-    for car in cars:
+    for car in cars_list:
         id_cars.append(car['id'])
     return max(id_cars)
 
@@ -66,7 +65,7 @@ def get_highest_id_car() -> int:
 @app.route('/cars', methods=['POST'])
 def create_car():
     car = json.loads(request.data)
-    car['id'] = get_highest_id_car() + 1
+    car['id'] = get_highest_id_car(cars) + 1
     cars.append(car)
     return '', 201, {'location': f"/cars/{car['id']}"}
 
