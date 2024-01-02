@@ -2,7 +2,9 @@ import unittest
 
 from main import get_highest_id_car
 
-cars = [
+
+class TestApi(unittest.TestCase):
+    cars = [
         {
             'id': 5,
             'manufacturer': 'Ford',
@@ -23,11 +25,9 @@ cars = [
         }
     ]
 
-
-class TestApi(unittest.TestCase):
     def test_highest_id_car(self):
         expected_id = 5
-        highest_id_car = get_highest_id_car(cars)
+        highest_id_car = get_highest_id_car(self.cars)
         self.assertEqual(expected_id, highest_id_car)
 
 
