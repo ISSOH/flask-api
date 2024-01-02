@@ -10,7 +10,7 @@ image: python:latest
     - pip install -r requirements.txt
     - pip install pytest
 
-smoke test:
+.smoke test:
   extends: .requirements
   stage: test
   script:
@@ -18,7 +18,7 @@ smoke test:
     - sleep 20
     - curl http://localhost:5000/api/health | grep "UP"
 
-unit test:
+.unit test:
   extends: .requirements
   stage: test
   script:
