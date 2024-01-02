@@ -1,3 +1,6 @@
+from lazy_streams import stream
+import time
+
 def factorial(number: int) -> int:
     if number == 1:
         return 1
@@ -28,11 +31,42 @@ def is_prime(number: int) -> bool:
     return is_prime_until(number // 2)
 
 
-# if __name__ == '__main__':
+def increment_numbers(numbers=None):
+    if numbers is None:
+        numbers = []
+    for i in range(3):
+        numbers.append(i)
+    print(f'Numbers: {numbers}')
+
+
+
+def get_even_numbers(numbers):
+    start = time.time()
+    even_numbers = []
+    if numbers is not None:
+        even_numbers = [x for x in numbers if x % 2 == 0]
+    end = time.time()
+    print(end - start)
+
+
+
+def another_get_even_numbers(numbers):
+    start = time.time()
+    s = stream(numbers) \
+        .filter(lambda x: x % 2 == 0) \
+        .to_list()
+    end = time.time()
+    print(end - start)
+
+
+if __name__ == '__main__':
+    print(get_even_numbers(range(500000)))
 #     # print(another_factorial(4500, 1))
 #     a_list = []
 #     if a_list is not None:
 #         new_list = list(map(lambda x: x*2, a_list))
 #         print(new_list)
+
+
 
 
