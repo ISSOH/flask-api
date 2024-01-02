@@ -32,11 +32,12 @@ image: python:latest
 test api:
   stage: postman test
   image:
-    name : vdespa/newman
+    name : postman/newman
     entrypoint: [""]
   script:
     - newman --version
-    - newman run "data/My Cars API.postman_collection.json" --environment data/Localhost.postman_environment.json --reporters cli, htmlextra, junit --reporter-htmlextra-export "newman/report.html" --reporter-junit-export "newman/report.xml"
+    - npm install -g newman-reporter-htmlextra
+    - newman run "data/My Cars API.postman_collection.json" -e data/Localhost.postman_environment.json --reporters cli, htmlextra, junit --reporter-htmlextra-export "newman/report.html" --reporter-junit-export "newman/report.xml"
   artifacts:
     when: always
     paths:
