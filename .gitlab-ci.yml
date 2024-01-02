@@ -1,6 +1,7 @@
 stages:
   - test
   - deploy
+  - postman test
 
 image: python:latest
 
@@ -24,3 +25,18 @@ unit test:
     when: always
     reports:
       junit: report.xml
+
+test api:
+  stage: postman test
+  image:
+    name : vdespa/newman
+    entrypoint: [""]
+  script:
+    - newman --version
+    - newman run "data/My Cars API.postman_collection.json" --environemnnt "data/Localhost.postman_environment.json" --reporters cli, htmlextra, junit --reporter-htmlextra-export "newman/report.html" --reporter-junit-export "newman/report.xml"
+  artifacts:
+    when: always
+    paths:
+      - newman/
+    reports:
+      junit: newman/report.xml
