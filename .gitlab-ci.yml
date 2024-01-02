@@ -19,6 +19,7 @@ unit test:
   stage: test
   script:
     - python -m unittest tests/test_get_highest_id_car.py
+    - python -m pytest --junitxml=report.xml
   artifacts:
     when: always
     reports:
