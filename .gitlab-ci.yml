@@ -2,6 +2,7 @@ stages:
   - test
   - deploy
   - postman test
+  - deploy aws
 
 image: python:latest
 
@@ -18,7 +19,7 @@ smoke test:
     - sleep 20
     - curl http://localhost:5000/api/health | grep "UP"
 
-.unit test:
+unit test:
   extends: .dependencies
   stage: test
   script:
@@ -44,3 +45,13 @@ smoke test:
       - newman/
     reports:
       junit: newman/report.xml
+
+deploy aws:
+  image:
+    name: amazon/aws-cli
+    entrypoint: [""]
+  stage: deploy aws
+  script:
+    - echo "Deploying cars api into Elastic Beanstalk"
+    - aws configure set region eu-west-3
+    - aws s3 cp ./main.py s3://$S3_BUCKET/main.py
