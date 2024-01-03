@@ -6,7 +6,7 @@ stages:
 image: python:latest
 
 .dependencies:
-  script:
+  before_script:
     - pip install -r requirements.txt
     - pip install pytest
 
