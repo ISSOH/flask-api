@@ -5,13 +5,13 @@ stages:
 
 image: python:latest
 
-.requirements:
+.dependencies:
   script:
     - pip install -r requirements.txt
     - pip install pytest
 
-.smoke test:
-  extends: .requirements
+smoke test:
+  extends: .dependencies
   stage: test
   script:
     - python main.py &
@@ -19,7 +19,7 @@ image: python:latest
     - curl http://localhost:5000/api/health | grep "UP"
 
 .unit test:
-  extends: .requirements
+  extends: .dependencies
   stage: test
   script:
     - python -m unittest tests/test_get_highest_id_car.py
@@ -29,7 +29,7 @@ image: python:latest
     reports:
       junit: report.xml
 
-test api:
+.test api:
   stage: postman test
   image:
     name : postman/newman
