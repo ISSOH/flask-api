@@ -2,6 +2,7 @@ variables:
   ARTEFACT_NAME: car-api-v$CI_PIPELINE_IID.zip
   APP_NAME: car-api
   ENVIRONMENT_NAME: Car-api-production
+  REGION: eu-west-3
 
 stages:
   - build
@@ -73,9 +74,14 @@ deploy aws:
     name: amazon/aws-cli
     entrypoint: [""]
   stage: deploy aws
+  before_script: :
+    - apk --no-cache add curl
+    - apk --no-cache add jq
   script:
     - echo "Deploying cars api into Elastic Beanstalk"
-    - aws configure set region eu-west-3
+    - aws configure set region $REGION
     - aws s3 cp build/$ARTEFACT_NAME s3://$S3_BUCKET/$ARTEFACT_NAME
     - aws elasticbeanstalk create-application-version --application-name $APP_NAME --version-label $CI_PIPELINE_IID --source-bundle S3Bucket=$S3_BUCKET,S3Key=$ARTEFACT_NAME
-    - aws elasticbeanstalk update-environment --application-name $APP_NAME --environment-name $ENVIRONMENT_NAME --version-label $CI_PIPELINE_IID
+    - CNAME=$(aws elasticbeanstalk update-environment --application-name $APP_NAME --environment-name $ENVIRONMENT_NAME --version-label $CI_PIPELINE_IID | jq '.CNAME' --raw-output)
+    - sleep 40
+    - curl http://$CNAME//api/health | grep "UP"
