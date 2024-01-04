@@ -74,6 +74,8 @@ deploy aws:
     name: amazon/aws-cli
     entrypoint: [""]
   stage: deploy aws
+  before_script:
+    - yum install jp
   script:
     - echo "Deploying cars api into Elastic Beanstalk"
     - aws configure set region $REGION
