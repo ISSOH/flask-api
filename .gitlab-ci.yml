@@ -22,7 +22,6 @@ build_api:
   stage: build
   script:
     - mkdir build
-    - cd build
     - echo "Create tar to deploy"
     - tar -cf $ARTEFACT_NAME application.py requirements.txt
   artifacts:
