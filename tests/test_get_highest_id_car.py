@@ -1,6 +1,6 @@
 import unittest
 
-from main import get_highest_id_car
+from application import get_highest_id_car
 
 
 class TestApi(unittest.TestCase):

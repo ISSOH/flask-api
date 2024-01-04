@@ -1,5 +1,5 @@
 variables:
-  ARTEFACT_NAME: main-v$CI_PIPELINE_IID.py
+  ARTEFACT_NAME: car-api-v$CI_PIPELINE_IID.tar
   APP_NAME: car-api
   ENVIRONMENT_NAME: Car-api-production
 
@@ -20,7 +20,9 @@ smoke test:
   extends: .dependencies
   stage: test
   script:
-    - python main.py &
+    - echo "Create tar to deploy"
+    - tar -cf $ARTEFACT_NAME application.py requirements.txt
+    - python application.py &
     - sleep 20
     - curl http://localhost:5000/api/health | grep "UP"
 
@@ -59,6 +61,6 @@ deploy aws:
   script:
     - echo "Deploying cars api into Elastic Beanstalk"
     - aws configure set region eu-west-3
-    - aws s3 cp ./main.py s3://$S3_BUCKET/$ARTEFACT_NAME
+    - aws s3 cp ./$ARTEFACT_NAME s3://$S3_BUCKET/$ARTEFACT_NAME
     - aws elasticbeanstalk create-application-version --application-name $APP_NAME --version-label $CI_PIPELINE_IID --source-bundle S3Bucket=$S3_BUCKET,S3Key=$ARTEFACT_NAME
     - aws elasticbeanstalk update-environment --application-name $APP_NAME --environment-name $ENVIRONMENT_NAME --version-label $CI_PIPELINE_IID

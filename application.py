@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 import json
 
-app = Flask(__name__)
+application = app = Flask(__name__)
 
 cars = [
     {
@@ -78,5 +78,5 @@ def api_health():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(debug=False)
 
