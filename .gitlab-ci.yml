@@ -75,6 +75,7 @@ deploy aws:
     entrypoint: [""]
   stage: deploy aws
   before_script:
+    - yum update
     - yum install jp
   script:
     - echo "Deploying cars api into Elastic Beanstalk"
