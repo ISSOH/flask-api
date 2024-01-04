@@ -33,7 +33,7 @@ build_api:
       - build/
 
 
-smoke test:
+.smoke test:
   extends: .dependencies
   stage: test
   script:
@@ -42,7 +42,7 @@ smoke test:
     - curl http://localhost:5000/api/health | grep "UP"
 
 
-unit test:
+.unit test:
   extends: .dependencies
   stage: test
   script:
@@ -75,8 +75,7 @@ deploy aws:
     entrypoint: [""]
   stage: deploy aws
   before_script:
-    - yum install curl
-    - yum install jq
+    - apt install curl
   script:
     - echo "Deploying cars api into Elastic Beanstalk"
     - aws configure set region $REGION
