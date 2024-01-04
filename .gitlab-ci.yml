@@ -65,7 +65,7 @@ unit test:
     reports:
       junit: newman/report.xml
 
-.deploy aws:
+deploy aws:
   image:
     name: amazon/aws-cli
     entrypoint: [""]
