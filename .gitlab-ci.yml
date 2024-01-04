@@ -59,5 +59,5 @@ deploy aws:
     - echo "Deploying cars api into Elastic Beanstalk"
     - aws configure set region eu-west-3
     - aws s3 cp ./main.py s3://$S3_BUCKET/$ARTEFACT_NAME
-    - aws elasticbeanstalk create-application-version --application-name $APP_NAME --version-label $CI_PIPELINE_IID --source-bundle S3Bucket=$S3_BUCKET,S3key=$ARTEFACT_NAME
+    - aws elasticbeanstalk create-application-version --application-name $APP_NAME --version-label $CI_PIPELINE_IID --source-bundle S3Bucket=$S3_BUCKET,S3Key=$ARTEFACT_NAME
     - aws elasticbeanstalk update-environment --application-name $APP_NAME --environment-name="Car-api-production" --version-label $CI_PIPELINE_IID
