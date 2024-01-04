@@ -76,7 +76,7 @@ deploy aws:
   stage: deploy aws
   before_script:
     - yum install curl
-    - yim install jq
+    - yum install jq
   script:
     - echo "Deploying cars api into Elastic Beanstalk"
     - aws configure set region $REGION
