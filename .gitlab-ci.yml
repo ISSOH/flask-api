@@ -74,8 +74,6 @@ deploy aws:
     name: amazon/aws-cli
     entrypoint: [""]
   stage: deploy aws
-  before_script:
-    - apt install curl
   script:
     - echo "Deploying cars api into Elastic Beanstalk"
     - aws configure set region $REGION
