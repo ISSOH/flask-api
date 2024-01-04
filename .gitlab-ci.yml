@@ -75,8 +75,8 @@ deploy aws:
     entrypoint: [""]
   stage: deploy aws
   before_script:
-    - apk --no-cache jq
-    - apk --no-cache curl
+    - apk --no-cache add jq
+    - apk --no-cache add curl
   script:
     - echo "Deploying cars api into Elastic Beanstalk"
     - aws configure set region $REGION
