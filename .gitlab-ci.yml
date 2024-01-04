@@ -24,6 +24,7 @@ build_api:
     - mkdir build
     - echo "Create tar to deploy"
     - tar -cf $ARTEFACT_NAME application.py requirements.txt
+    - mv $ARTEFACT_NAME ./build
   artifacts:
     paths:
       - build/
