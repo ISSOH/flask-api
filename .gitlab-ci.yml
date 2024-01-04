@@ -6,7 +6,6 @@ variables:
 stages:
   - build
   - test
-  - deploy
   - postman test
   - deploy aws
 
@@ -30,7 +29,7 @@ build_api:
       - build/
 
 
-.smoke test:
+smoke test:
   extends: .dependencies
   stage: test
   script:
@@ -38,7 +37,8 @@ build_api:
     - sleep 20
     - curl http://localhost:5000/api/health | grep "UP"
 
-.unit test:
+
+unit test:
   extends: .dependencies
   stage: test
   script:
@@ -73,6 +73,6 @@ build_api:
   script:
     - echo "Deploying cars api into Elastic Beanstalk"
     - aws configure set region eu-west-3
-    - aws s3 cp ./$ARTEFACT_NAME s3://$S3_BUCKET/$ARTEFACT_NAME
+    - aws s3 cp build/$ARTEFACT_NAME s3://$S3_BUCKET/$ARTEFACT_NAME
     - aws elasticbeanstalk create-application-version --application-name $APP_NAME --version-label $CI_PIPELINE_IID --source-bundle S3Bucket=$S3_BUCKET,S3Key=$ARTEFACT_NAME
     - aws elasticbeanstalk update-environment --application-name $APP_NAME --environment-name $ENVIRONMENT_NAME --version-label $CI_PIPELINE_IID
