@@ -75,8 +75,7 @@ deploy aws:
     entrypoint: [""]
   stage: deploy aws
   before_script:
-    - yum update
-    - yum install jp
+    - apk add jq
   script:
     - echo "Deploying cars api into Elastic Beanstalk"
     - aws configure set region $REGION
