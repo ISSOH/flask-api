@@ -1,5 +1,5 @@
 variables:
-  ARTEFACT_NAME: car-api-v$CI_PIPELINE_IID.tar
+  ARTEFACT_NAME: car-api-v$CI_PIPELINE_IID.zip
   APP_NAME: car-api
   ENVIRONMENT_NAME: Car-api-production
 
@@ -22,7 +22,7 @@ build_api:
   script:
     - mkdir build
     - echo "Create tar to deploy"
-    - tar -cf $ARTEFACT_NAME application.py requirements.txt
+    - zip $ARTEFACT_NAME application.py requirements.txt
     - mv $ARTEFACT_NAME ./build
   artifacts:
     paths:
