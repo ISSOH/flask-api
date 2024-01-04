@@ -18,7 +18,7 @@ image: python:latest
     - pip install pytest
 
 
-build_api:
+.build_api:
   image: alpine
   stage: build
   before_script:
@@ -53,7 +53,7 @@ build_api:
     reports:
       junit: report.xml
 
-.test api:
+test api:
   stage: postman test
   image:
     name : postman/newman
@@ -69,7 +69,7 @@ build_api:
     reports:
       junit: newman/report.xml
 
-deploy aws:
+.deploy aws:
   image:
     name: banst/awscli
     entrypoint: [""]
