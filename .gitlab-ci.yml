@@ -61,7 +61,7 @@ test api:
   script:
     - newman --version
     - npm install -g newman-reporter-htmlextra
-    - newman run "data/My Cars API.postman_collection.json" -e data/Localhost.postman_environment.json --insecure --delay-request=1000 --reporters cli, htmlextra, junit --reporter-htmlextra-export "newman/report.html" --reporter-junit-export "newman/report.xml"
+    - newman run "data/My Cars API.postman_collection.json" -e data/Localhost.postman_environment.json --insecure --delay-request=1000 --reporter=htmlextra --reporter-htmlextra-export
   artifacts:
     when: always
     paths:
