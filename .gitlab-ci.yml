@@ -4,6 +4,7 @@ variables:
   ENVIRONMENT_NAME: Car-api-production
 
 stages:
+  - build
   - test
   - deploy
   - postman test
@@ -16,17 +17,28 @@ image: python:latest
     - pip install -r requirements.txt
     - pip install pytest
 
-smoke test:
+
+build_api:
+  stage: build
+  script:
+    - mkdir build
+    - cd build
+    - echo "Create tar to deploy"
+    - tar -cf $ARTEFACT_NAME application.py requirements.txt
+  artifacts:
+    paths:
+      - build/
+
+
+.smoke test:
   extends: .dependencies
   stage: test
   script:
-    - echo "Create tar to deploy"
-    - tar -cf $ARTEFACT_NAME application.py requirements.txt
     - python application.py &
     - sleep 20
     - curl http://localhost:5000/api/health | grep "UP"
 
-unit test:
+.unit test:
   extends: .dependencies
   stage: test
   script:
@@ -53,7 +65,7 @@ unit test:
     reports:
       junit: newman/report.xml
 
-deploy aws:
+.deploy aws:
   image:
     name: amazon/aws-cli
     entrypoint: [""]
