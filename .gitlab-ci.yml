@@ -18,9 +18,10 @@ image: python:latest
 
 
 build_api:
+  image: alpine
   stage: build
   before_script:
-    - apt-get install zip
+    - apk add zip
   script:
     - mkdir build
     - echo "Create tar to deploy"
