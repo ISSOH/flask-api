@@ -20,7 +20,7 @@ image: python:latest
 build_api:
   stage: build
   before_script:
-    - apt install zip
+    - apt-get install zip
   script:
     - mkdir build
     - echo "Create tar to deploy"
