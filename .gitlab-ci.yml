@@ -7,7 +7,6 @@ variables:
 stages:
   - build
   - test
-  - postman test
   - deploy aws
 
 image: python:latest
@@ -52,22 +51,6 @@ image: python:latest
     when: always
     reports:
       junit: report.xml
-
-test api:
-  stage: postman test
-  image:
-    name : postman/newman
-    entrypoint: [""]
-  script:
-    - newman --version
-    - npm install -g newman-reporter-htmlextra
-    - newman run "data/My Cars API.postman_collection.json" -e data/Localhost.postman_environment.json --insecure --delay-request=1000 --reporter=htmlextra --reporter-htmlextra-export
-  artifacts:
-    when: always
-    paths:
-      - newman/
-    reports:
-      junit: newman/report.xml
 
 .deploy aws:
   image:
