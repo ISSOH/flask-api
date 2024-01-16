@@ -17,7 +17,7 @@ image: python:latest
     - pip install pytest
 
 
-.build_api:
+build_api:
   image: alpine
   stage: build
   before_script:
@@ -30,9 +30,10 @@ image: python:latest
   artifacts:
     paths:
       - build/
+    expire_in: 1 week
 
 
-.smoke test:
+smoke test:
   extends: .dependencies
   stage: test
   script:
@@ -41,7 +42,7 @@ image: python:latest
     - curl http://localhost:5000/api/health | grep "UP"
 
 
-.unit test:
+unit test:
   extends: .dependencies
   stage: test
   script:
@@ -52,7 +53,7 @@ image: python:latest
     reports:
       junit: report.xml
 
-.deploy aws:
+deploy aws:
   image:
     name: banst/awscli
     entrypoint: [""]
@@ -68,3 +69,5 @@ image: python:latest
     - CNAME=$(aws elasticbeanstalk update-environment --application-name $APP_NAME --environment-name $ENVIRONMENT_NAME --version-label $CI_PIPELINE_IID | jq '.CNAME' --raw-output)
     - sleep 40
     - curl http://$CNAME//api/health | grep "UP"
+  rules:
+    - if: CI_COMMIT_REF_NAME == "main"

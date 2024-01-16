@@ -1,5 +1,6 @@
-from lazy_streams import stream
+# from lazy_streams import stream
 import time
+
 
 def factorial(number: int) -> int:
     if number == 1:
@@ -50,17 +51,16 @@ def get_even_numbers(numbers):
 
 
 
-def another_get_even_numbers(numbers):
-    start = time.time()
-    s = stream(numbers) \
-        .filter(lambda x: x % 2 == 0) \
-        .to_list()
-    end = time.time()
-    print(end - start)
+def get_users():
+    print("Les rèves des gens")
+
 
 
 if __name__ == '__main__':
-    print(get_even_numbers(range(500000)))
+    user = 0
+    if user:
+        print("Bonjour")
+    # get_users()
 #     # print(another_factorial(4500, 1))
 #     a_list = []
 #     if a_list is not None:

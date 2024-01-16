@@ -38,6 +38,10 @@ def home():
 
 @app.route('/cars/', methods=['GET'])
 def get_all_employees():
+    """ Get all car collections
+    :return: list of car
+    :rtype: list
+    """
     return jsonify(cars)
 
 
@@ -52,10 +56,24 @@ def get_employees_id(id: int):
 
 
 def get_car_by_id(id_car: int):
+    """Get car with id mapping
+
+    args:
+    id_car(str): The id car
+
+    Returns:
+        dict: a dict with car representing given id
+    """
     return next((car for car in cars if car['id'] == id_car), None)
 
 
 def get_highest_id_car(cars_list: list) -> int:
+    """ Get the highest id car within a collections of car
+    :param cars_list: collections of dict
+    :type cars_list: list
+    :return: the highest id in collection
+    :rtype: int
+    """
     id_cars = []
     for car in cars_list:
         id_cars.append(car['id'])
