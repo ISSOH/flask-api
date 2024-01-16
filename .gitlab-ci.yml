@@ -70,4 +70,4 @@ deploy aws:
     - sleep 40
     - curl http://$CNAME//api/health | grep "UP"
   rules:
-    - if: CI_COMMIT_REF_NAME == "main"
+    - if: $CI_COMMIT_REF_NAME == "main"
